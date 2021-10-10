@@ -3,6 +3,6 @@ Extension for Fantasy Grounds' Pathfinder ruleset that allows you to see what yo
 
 Current commands:
 
-/ac [character name]
+`/ac character_name`
 
 Shows the Normal, Touch and Flat-footed AC of a character. For Hosts character name is required, clients it is ignored and their character's values are returned.
