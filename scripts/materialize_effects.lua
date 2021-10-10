@@ -30,7 +30,7 @@ local function processAC(sCommand, sParams)
     if Session.IsHost then
         rTarget = getCharacterNodeByName(sParams)
     else
-        rTarget = "charsheet." .. User.getCurrentIdentity()
+        rTarget = DB.getChild("charsheet", User.getCurrentIdentity())
     end
 
     if rTarget then
@@ -40,8 +40,8 @@ local function processAC(sCommand, sParams)
             secret = false,
             text = DB.getValue(rTarget, "name", "") .. "\n" ..
             "Normal AC:     " .. getNormalAc(rTarget) .. "\n" ..
-            "Touch AC:      " .. getTouchAc(rTarget) .. "\n" ..
-            "Flat-footed AC:" .. getFlatfootedAc(rTarget)
+            "Flat-footed AC:" .. getFlatfootedAc(rTarget) .. "\n" ..
+            "Touch AC:      " .. getTouchAc(rTarget)
         }
         
         Comm.addChatMessage(msg)
