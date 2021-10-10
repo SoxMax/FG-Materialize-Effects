@@ -5,5 +5,4 @@ Current commands:
 
 /ac [character name]
 
-Shows the Normal, Touch and Flat-footed AC of a character
-For Hosts character name is required, clients it is ignored and their character's values are returned
+Shows the Normal, Touch and Flat-footed AC of a character. For Hosts character name is required, clients it is ignored and their character's values are returned.
