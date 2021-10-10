@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root version="3.3">
+	<properties>
+		<name>Feature: Materialize Effects</name>
+		<version>0.3.3</version>
+		<author>SoxMax</author>
+		<description>Allows you to see what your stats are with effects applied</description>
+		<loadorder>401</loadorder>
+		<ruleset>
+			<name>3.5E</name>
+		</ruleset>
+		<ruleset>
+			<name>PFRPG</name>
+		</ruleset>
+	</properties>
+	
+	<announcement text="https://github.com/SoxMax/FG-Materialize-Effects \r Materialize Effects v1.0.0 \r Allows you to see what your stats are with effects applied" font="emotefont" />
+	
+	<base>
+		<!-- Scripts -->
+		<script name="MaterializeEffects" file="scripts/materialize_effects.lua" />
+	</base>
+</root>
