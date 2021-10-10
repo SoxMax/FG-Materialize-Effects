@@ -1,29 +1,51 @@
 
-local function touchAttackRoll()
-    local rRoll = {}
-    rRoll.sDesc = "[TOUCH]"
-    rRoll.sType = "attack"
-    return rRoll
+local function getNormalAc(sCharNode)
+    local rRoll = { sDesc = "", sType = "attack" }
+    local nDefenseVal, nAtkEffectsBonus, nDefEffectsBonus, nMissChance = ActorManager35E.getDefenseValue(nil, sCharNode, rRoll)
+    return nDefenseVal + nDefEffectsBonus
 end
 
-local function flatfootedAttackRoll()
-    local rRoll = {}
-    rRoll.sDesc = "[FF]"
-    rRoll.sType = "attack"
-    return rRoll
+local function getTouchAc(sCharNode)
+    local rRoll = { sDesc = "[TOUCH]", sType = "attack" }
+    local nDefenseVal, nAtkEffectsBonus, nDefEffectsBonus, nMissChance = ActorManager35E.getDefenseValue(nil, sCharNode, rRoll)
+    return nDefenseVal + nDefEffectsBonus
+end
+
+local function getFlatfootedAc(sCharNode)
+    local rRoll = { sDesc = "[FF]", sType = "attack" }
+    local nDefenseVal, nAtkEffectsBonus, nDefEffectsBonus, nMissChance = ActorManager35E.getDefenseValue(nil, sCharNode, rRoll)
+    return nDefenseVal + nDefEffectsBonus
+end
+
+local function getCharacterNodeByName(sName)
+    for _, character in pairs(DB.getChildren("charsheet")) do
+        if DB.getValue(character, "name", "") == sName then
+            return character
+        end
+    end
 end
 
 local function processAC(sCommand, sParams)
-    Debug.chat("processAC")
-    Debug.chat(User.getCurrentIdentity())
+    local rTarget = nil
+    if Session.IsHost then
+        rTarget = getCharacterNodeByName(sParams)
+    else
+        rTarget = "charsheet." .. User.getCurrentIdentity()
+    end
 
-    local rSource = nil
-    -- local rTarget = "charsheet." .. User.getCurrentIdentity()
-    local rTarget = "charsheet.id-00001"
-    local rRoll = flatfootedAttackRoll()
-
-    local nDefenseVal, nAtkEffectsBonus, nDefEffectsBonus, nMissChance = ActorManager35E.getDefenseValue(rSource, rTarget, rRoll)
-    Debug.chat(nDefenseVal, nAtkEffectsBonus, nDefEffectsBonus, nMissChance)
+    if rTarget then
+        local msg = {
+            font = "systemfont",
+            icon = DB.getValue(rTarget, "token", ""),
+            secret = false,
+            text = DB.getValue(rTarget, "name", "") .. "\n" ..
+            "Normal AC:     " .. getNormalAc(rTarget) .. "\n" ..
+            "Touch AC:      " .. getTouchAc(rTarget) .. "\n" ..
+            "Flat-footed AC:" .. getFlatfootedAc(rTarget)
+        }
+        
+        Comm.addChatMessage(msg)
+    end
 end
 
 function onInit()
