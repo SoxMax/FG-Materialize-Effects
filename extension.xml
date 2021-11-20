@@ -2,7 +2,7 @@
 <root version="3.3">
 	<properties>
 		<name>Feature: Materialize Effects</name>
-		<version>0.3.3</version>
+		<version>1.0.0</version>
 		<author>SoxMax</author>
 		<description>Allows you to see what your stats are with effects applied</description>
 		<loadorder>401</loadorder>
